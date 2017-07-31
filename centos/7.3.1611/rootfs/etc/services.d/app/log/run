@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# ensure ownership & permissions for /lain/logs/default
+mkdir -p /lain/logs/default
+chown -R nobody:nobody /lain/logs/default
+
+exec logutil-service /lain/logs/default
