@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  centos:
+    build:
+      context: centos/7.3.1611
+      dockerfile: Dockerfile
+    image: laincloud/centos:7.3.1611
