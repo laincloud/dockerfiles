@@ -5,19 +5,13 @@ RUN yum update -y \
                       lsof unzip xz vim git wget \
     && yum clean all
 
-ENV S6_OVERLAY_VERSION=v1.19.1.1 \
+ENV S6_OVERLAY_VERSION=v1.20.0.0 \
     S6_LOGGING_SCRIPT=n3\ s268435455
 
-RUN wget https://keybase.io/justcontainers/key.asc --no-check-certificate -O /tmp/s6-overlay-key.asc \
-    && wget https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz --no-check-certificate -O /tmp/s6-overlay-amd64.tar.gz \
-    && wget https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz.sig --no-check-certificate -O /tmp/s6-overlay-amd64.tar.gz.sig \
-    && gpg --import /tmp/s6-overlay-key.asc \
-    && gpg --verify /tmp/s6-overlay-amd64.tar.gz.sig /tmp/s6-overlay-amd64.tar.gz \
+RUN wget https://github.com/laincloud/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz -O /tmp/s6-overlay-amd64.tar.gz \
     && tar xzf /tmp/s6-overlay-amd64.tar.gz -C / --exclude="./bin" \
     && tar xzf /tmp/s6-overlay-amd64.tar.gz -C /usr ./bin \
-    && rm -f /tmp/s6-overlay-key.asc \
-    && rm -f /tmp/s6-overlay-amd64.tar.gz \
-    && rm -f /tmp/s6-overlay-amd64.tar.gz.sig
+    && rm -f /tmp/s6-overlay-amd64.tar.gz
 
 COPY rootfs /
 
