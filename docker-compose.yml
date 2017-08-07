@@ -6,3 +6,11 @@ services:
       context: centos/7.3.1611
       dockerfile: Dockerfile
     image: laincloud/centos:7.3.1611
+
+  java:
+    build:
+      context: java/8u131
+      dockerfile: Dockerfile
+    image: laincloud/java:8u131
+    depends_on:
+      - centos
