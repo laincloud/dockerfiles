@@ -17,6 +17,16 @@ services:
 
   maven:
     build:
-      context: maven/3.5.0-jdk-8u131
+      context: maven/3.5.0-jdk8u131
       dockerfile: Dockerfile
-    image: laincloud/maven:3.5.0-jdk-8u131
+    image: laincloud/maven:3.5.0-jdk8u131
+    depends_on:
+      - java
+
+  maven-kotlin:
+    build:
+      context: maven-kotlin/3.5.0-jdk8u131-1.1.3-2
+      dockerfile: Dockerfile
+    image: laincloud/maven-kotlin:3.5.0-jdk8u131-1.1.3-2
+    depends_on:
+      - maven
