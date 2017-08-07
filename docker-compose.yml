@@ -14,3 +14,9 @@ services:
     image: laincloud/java:8u131
     depends_on:
       - centos
+
+  maven:
+    build:
+      context: maven/3.5.0-jdk-8u131
+      dockerfile: Dockerfile
+    image: laincloud/maven:3.5.0-jdk-8u131
