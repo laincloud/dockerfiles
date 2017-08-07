@@ -11,4 +11,5 @@ RUN cd /tmp \
     && mv "/tmp/kotlinc/bin" "/tmp/kotlinc/lib" "${KOTLIN_HOME}" \
     && rm ${KOTLIN_HOME}/bin/*.bat \
     && chmod +x ${KOTLIN_HOME}/bin/* \
-    && ln -s "${KOTLIN_HOME}/bin/"* "/usr/bin/"
+    && ln -s "${KOTLIN_HOME}/bin/"* "/usr/bin/" \
+    && rm -rf /tmp/*
