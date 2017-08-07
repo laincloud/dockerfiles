@@ -10,4 +10,4 @@ install:
   - pip install docker-compose
 
 script:
-  - env
+  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
