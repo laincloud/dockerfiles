@@ -11,5 +11,6 @@ install:
 
 script:
   - docker-compose build
+  - echo "$DOCKER_USER" "$DOCKER_PASSWORD"
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   - docker-compose push
