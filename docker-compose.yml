@@ -7,6 +7,14 @@ services:
       dockerfile: Dockerfile
     image: laincloud/centos:7.3.1611
 
+  golang:
+    build:
+      context: golang/1.8.3
+      dockerfile: Dockerfile
+    image: laincloud/golang:1.8.3
+    depends_on:
+      - centos
+
   java:
     build:
       context: java/8u131
