@@ -1,15 +1,5 @@
 FROM laincloud/centos:7.3.1611
 
-# gcc for cgo
-RUN yum update \
-    && yum install -y \
-           g++ \
-           gcc \
-           libc6-dev \
-           make \
-           pkg-config \
-    && yum clean all
-
 ENV GOLANG_VERSION 1.8.3
 
 RUN set -eux; \
