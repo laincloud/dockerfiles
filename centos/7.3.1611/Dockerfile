@@ -1,6 +1,7 @@
 FROM centos:7.3.1611
 
 RUN yum update -y \
+    && yum groupinstall -y "Development tools" \
     && yum install -y telnet traceroute net-tools tcpdump iptraf nmap \
                       lsof unzip xz vim git wget \
     && yum clean all
