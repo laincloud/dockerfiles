@@ -7,11 +7,19 @@ services:
       dockerfile: Dockerfile
     image: laincloud/centos:7.3.1611
 
-  golang:
+  golang-1.8.3:
     build:
       context: golang/1.8.3
       dockerfile: Dockerfile
     image: laincloud/golang:1.8.3
+    depends_on:
+      - centos
+
+  golang-1.9.0:
+    build:
+      context: golang/1.9.0
+      dockerfile: Dockerfile
+    image: laincloud/golang:1.9.0
     depends_on:
       - centos
 
@@ -46,3 +54,11 @@ services:
     image: laincloud/tomcat:8.5.20-jdk8u131
     depends_on:
       - java
+
+  node-8.4.0:
+    build:
+      context: node/8.4.0
+      dockerfile: Dockerfile
+    image: laincloud/node:8.4.0
+    depends_on:
+      - centos
