@@ -71,3 +71,11 @@ services:
     depends_on:
       - golang-1.9.0
       - node-8.4.0
+
+  nginx-1.13.5:
+    build:
+      context: nginx/1.13.5
+      dockerfile: Dockerfile
+    image: laincloud/nginx:1.13.5
+    depends_on:
+      - centos
