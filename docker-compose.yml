@@ -62,3 +62,12 @@ services:
     image: laincloud/node:8.4.0
     depends_on:
       - centos
+
+  golang-node-1.9.0-8.4.0:
+    build:
+      context: golang-node/1.9.0-8.4.0
+      dockerfile: Dockerfile
+    image: laincloud/golang-node:1.9.0-8.4.0
+    depends_on:
+      - golang-1.9.0
+      - node-8.4.0
