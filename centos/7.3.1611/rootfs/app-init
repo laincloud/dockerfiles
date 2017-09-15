@@ -11,9 +11,8 @@
 /bin/importas -D /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin PATH PATH
 
 # init default service with CMD
-if { /bin/redirfd -w 1 /etc/services.d/app/run /bin/s6-echo -- "#!/usr/bin/execlineb -P" }
+if { /bin/redirfd -w 1 /etc/services.d/app/run /bin/s6-echo -- "#!/bin/sh" }
 if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "" }
-if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "fdmove -c 2 1" }
-if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "$@" }
+if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "$@" "2>&1" }
 
 /etc/s6/init/init-stage1

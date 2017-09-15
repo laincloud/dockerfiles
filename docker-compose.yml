@@ -85,11 +85,3 @@ services:
     image: laincloud/nginx:1.13.5
     depends_on:
       - centos
-
-  php-7.1.9:
-    build:
-      context: php/7.1.9
-      dockerfile: Dockerfile
-    image: laincloud/php:7.1.9
-    depends_on:
-      - debian-stretch
