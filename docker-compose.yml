@@ -93,3 +93,11 @@ services:
     image: laincloud/php:7.1.9
     depends_on:
       - debian-stretch
+
+  php-7.1.9-apache:
+    build:
+      context: php/7.1.9/apache
+      dockerfile: Dockerfile
+    image: laincloud/php:7.1.9-apache
+    depends_on:
+      - debian-stretch
