@@ -7,6 +7,12 @@ services:
       dockerfile: Dockerfile
     image: laincloud/centos:7.3.1611
 
+  debian-stretch:
+    build:
+      context: debian/stretch
+      dockerfile: Dockerfile
+    image: laincloud/debian:stretch
+
   golang-1.8.3:
     build:
       context: golang/1.8.3
