@@ -85,3 +85,11 @@ services:
     image: laincloud/nginx:1.13.5
     depends_on:
       - centos
+
+  jetty:
+    build:
+      context: jetty/9.4
+      dockerfile: Dockerfile
+    image: laincloud/jetty:9.4
+    depends_on:
+      - java
