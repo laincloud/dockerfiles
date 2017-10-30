@@ -1,8 +1,5 @@
 FROM laincloud/java:8u131
 
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r jetty && useradd -r -g jetty jetty
-
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH
 RUN mkdir -p "$JETTY_HOME"
@@ -56,5 +53,3 @@ ENV TMPDIR /tmp/jetty
 RUN set -xe \
 	&& mkdir -p "$TMPDIR" \
 	&& chown -R jetty:jetty "$TMPDIR"
-
-USER jetty
