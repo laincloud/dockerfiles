@@ -93,3 +93,11 @@ services:
     image: laincloud/jetty:9.4
     depends_on:
       - java
+
+  xgboost-anaconda2-master-4.0.0:
+    build:
+      context: xgboost-anaconda2/master-4.0.0
+      dockerfile: Dockerfile
+    image: laincloud/xgboost-anaconda2:master-4.0.0
+    depends_on:
+      - debian-stretch
