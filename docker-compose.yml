@@ -11,6 +11,11 @@ services:
       context: centos/7.4.1708
     image: laincloud/centos:7.4.1708
 
+  centos-lain-20171211:
+    build:
+      context: centos-lain/20171211
+    image: laincloud/centos-lain:20171211
+
   debian-stretch:
     build:
       context: debian/stretch
