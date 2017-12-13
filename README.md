@@ -40,7 +40,7 @@ log-driver | 日志收集速度
 子进程退出后收割子进程，并正确的处理信号；`s6-log` 可以收集 stdout/stderr 并自动 rotate，
 并且能达到 200 MB/s 的速度。所以我们使用 `s6`。
 
-> `s6-log` 的性能测试参见 [centos/7.3.1611/README.md#性能测试](centos/7.3.1611/README.md#性能测试)。
+> `s6-log` 的性能测试参见 [centos/7.3.1611/README.md#性能测试](centos/7/README.md#性能测试)。
 
 ## `s6-overlay` 与 `s6` 的关系
 
@@ -62,7 +62,7 @@ CMD 退出时，`s6-supervise` 会自动执行 [/etc/services.log/app/finish](ce
 然后容器也跟着退出。
 
 另外，我们还将 `s6-overlay` 里的 `s6-log` 升级到了 `2.6.0.0`，原因请参见
-[centos/7.3.1611/README.md#为什么有-rootfsusrbins6-log-文件](centos/7.3.1611/README.md#为什么有-rootfsusrbins6-log-文件)
+[centos/7.3.1611/README.md#为什么有-rootfsusrbins6-log-文件](centos/7/README.md#为什么有-rootfsusrbins6-log-文件)
 
 ## 使用示例
 

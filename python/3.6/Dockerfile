@@ -1,4 +1,4 @@
-FROM laincloud/centos:7.4.1708
+FROM laincloud/centos:7
 
 RUN yum update -y \
     && yum install -y https://centos7.iuscommunity.org/ius-release.rpm \

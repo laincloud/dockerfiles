@@ -1,4 +1,4 @@
-FROM laincloud/java:8u131
+FROM laincloud/java:8
 
 ENV MAVEN_VERSION=3.5.0
 ENV MAVEN_HOME=/opt/mvn

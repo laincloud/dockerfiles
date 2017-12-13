@@ -1,4 +1,4 @@
-FROM laincloud/centos:7.3.1611
+FROM laincloud/centos:7
 
 COPY rootfs /
 RUN yum update \
