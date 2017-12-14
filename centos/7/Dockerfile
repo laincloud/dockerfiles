@@ -14,8 +14,7 @@ RUN yum update -y \
                       unzip \
                       vim \
                       wget \
-                      xz \
-    && yum clean all
+                      xz
 
 ENV S6_OVERLAY_VERSION=v1.21.2.1 \
     S6_LOGGING_SCRIPT=n3\ s268435455 \

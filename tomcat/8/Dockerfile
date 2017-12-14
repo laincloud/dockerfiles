@@ -1,4 +1,4 @@
-FROM laincloud/java:8u131
+FROM laincloud/java:8
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

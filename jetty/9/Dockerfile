@@ -1,4 +1,4 @@
-FROM laincloud/java:8u131
+FROM laincloud/java:8
 
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH
