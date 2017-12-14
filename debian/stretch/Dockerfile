@@ -16,11 +16,11 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
                        xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
-ENV S6_OVERLAY_VERSION=v1.20.0.0 \
+ENV S6_OVERLAY_VERSION=v1.21.2.1 \
     S6_LOGGING_SCRIPT=n3\ s268435455 \
     S6_KEEP_ENV=1
 
-RUN wget https://github.com/laincloud/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz -O /tmp/s6-overlay-amd64.tar.gz \
+RUN wget https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz -O /tmp/s6-overlay-amd64.tar.gz \
     && tar xvfz /tmp/s6-overlay-amd64.tar.gz -C / \
     && rm -f /tmp/s6-overlay-amd64.tar.gz
 
