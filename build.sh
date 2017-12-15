@@ -103,3 +103,7 @@ docker push laincloud/python:3.6
 #docker tag laincloud/tomcat laincloud/tomcat:8.5.24
 #
 #docker push laincloud/tomcat:8.5.24
+
+docker build -t laincloud/jira:7.6.1 jira/7.6.1
+
+docker push laincloud/jira:7.6.1
