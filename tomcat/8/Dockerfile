@@ -15,31 +15,18 @@ ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
 # > configure: error: Your version of OpenSSL is not compatible with this version of tcnative
 # see http://tomcat.10.x6.nabble.com/VOTE-Release-Apache-Tomcat-8-0-32-tp5046007p5046024.html (and following discussion)
 # and https://github.com/docker-library/tomcat/pull/31
-ENV OPENSSL_VERSION 1.1.0f-3+deb9u1
-RUN set -ex; \
-	if ! grep -q stretch /etc/apt/sources.list; then \
-# only add stretch if we're not already building from within stretch
-		{ \
-			echo 'deb http://deb.debian.org/debian stretch main'; \
-			echo 'deb http://security.debian.org stretch/updates main'; \
-			echo 'deb http://deb.debian.org/debian stretch-updates main'; \
-		} > /etc/apt/sources.list.d/stretch.list; \
-		{ \
-# add a negative "Pin-Priority" so that we never ever get packages from stretch unless we explicitly request them
-			echo 'Package: *'; \
-			echo 'Pin: release n=stretch*'; \
-			echo 'Pin-Priority: -10'; \
-			echo; \
-# ... except OpenSSL, which is the reason we're here
-			echo 'Package: openssl libssl*'; \
-			echo "Pin: version $OPENSSL_VERSION"; \
-			echo 'Pin-Priority: 990'; \
-		} > /etc/apt/preferences.d/stretch-openssl; \
-	fi
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		libapr1 \
-		openssl="$OPENSSL_VERSION" \
-	&& rm -rf /var/lib/apt/lists/*
+ENV OPENSSL_VERSION 1.1.0f
+RUN cd /tmp \
+    && wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz \
+    && tar -xzf openssl-${OPENSSL_VERSION}.tar.gz \
+    && cd openssl-1.1.0f \
+    && ./config \
+    && make \
+    && make install \
+    && ln -s /usr/local/lib64/libssl.so.1.1 /usr/lib64/ \
+    && ln -s /usr/local/lib64/libcrypto.so.1.1 /usr/lib64/ \
+    && ln -s /usr/local/bin/openssl /usr/bin/ \
+    && rm -rf /tmp/*
 
 # see https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/KEYS
 # see also "update.sh" (https://github.com/docker-library/tomcat/blob/master/update.sh)
@@ -50,85 +37,58 @@ RUN set -ex; \
 	done
 
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.24
-ENV TOMCAT_SHA1 9e26ba61c5665aafc849073edeb769be555283cd
+ENV TOMCAT_VERSION 8.5.20
 
-ENV TOMCAT_TGZ_URLS \
 # https://issues.apache.org/jira/browse/INFRA-8753?focusedCommentId=14735394#comment-14735394
-	https://www.apache.org/dyn/closer.cgi?action=download&filename=tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz \
-# if the version is outdated, we might have to pull from the dist/archive :/
-	https://www-us.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz \
-	https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz \
-	https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
-
-ENV TOMCAT_ASC_URLS \
-	https://www.apache.org/dyn/closer.cgi?action=download&filename=tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc \
+ENV TOMCAT_TGZ_URL https://www.apache.org/dyn/closer.cgi?action=download&filename=tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 # not all the mirrors actually carry the .asc files :'(
-	https://www-us.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc \
-	https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc \
-	https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc
+ENV TOMCAT_ASC_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc
 
-RUN set -eux; \
+# if the version is outdated, we have to pull from the archive :/
+ENV TOMCAT_TGZ_FALLBACK_URL https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+ENV TOMCAT_ASC_FALLBACK_URL https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz.asc
+
+RUN set -x \
 	\
-	success=; \
-	for url in $TOMCAT_TGZ_URLS; do \
-		if wget -O tomcat.tar.gz "$url"; then \
-			success=1; \
-			break; \
-		fi; \
-	done; \
-	[ -n "$success" ]; \
+	&& { \
+		wget -O tomcat.tar.gz "$TOMCAT_TGZ_URL" \
+		|| wget -O tomcat.tar.gz "$TOMCAT_TGZ_FALLBACK_URL" \
+	; } \
+	&& { \
+		wget -O tomcat.tar.gz.asc "$TOMCAT_ASC_URL" \
+		|| wget -O tomcat.tar.gz.asc "$TOMCAT_ASC_FALLBACK_URL" \
+	; } \
+	&& gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
+	&& tar -xvf tomcat.tar.gz --strip-components=1 \
+	&& rm bin/*.bat \
+	&& rm tomcat.tar.gz* \
 	\
-	echo "$TOMCAT_SHA1 *tomcat.tar.gz" | sha1sum -c -; \
-	\
-	success=; \
-	for url in $TOMCAT_ASC_URLS; do \
-		if wget -O tomcat.tar.gz.asc "$url"; then \
-			success=1; \
-			break; \
-		fi; \
-	done; \
-	[ -n "$success" ]; \
-	\
-	gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz; \
-	tar -xvf tomcat.tar.gz --strip-components=1; \
-	rm bin/*.bat; \
-	rm tomcat.tar.gz*; \
-	\
-	nativeBuildDir="$(mktemp -d)"; \
-	tar -xvf bin/tomcat-native.tar.gz -C "$nativeBuildDir" --strip-components=1; \
-	nativeBuildDeps=" \
-		dpkg-dev \
-		gcc \
-		libapr1-dev \
-		libssl-dev \
-		make \
-		openjdk-${JAVA_VERSION%%[-~bu]*}-jdk=$JAVA_DEBIAN_VERSION \
-	"; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends $nativeBuildDeps; \
-	rm -rf /var/lib/apt/lists/*; \
-	( \
-		export CATALINA_HOME="$PWD"; \
-		cd "$nativeBuildDir/native"; \
-		gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
-		./configure \
+	&& nativeBuildDir="$(mktemp -d)" \
+	&& tar -xvf bin/tomcat-native.tar.gz -C "$nativeBuildDir" --strip-components=1 \
+	&& nativeBuildDeps=" \
+		apr-devel \
+	" \
+	&& yum update && yum install -y $nativeBuildDeps && yum clean all \
+	&& ( \
+		export CATALINA_HOME="$PWD" \
+		&& cd "$nativeBuildDir/native" \
+		&& gnuArch="$(uname -m)-linux-gnu" \
+		&& ./configure \
 			--build="$gnuArch" \
 			--libdir="$TOMCAT_NATIVE_LIBDIR" \
 			--prefix="$CATALINA_HOME" \
 			--with-apr="$(which apr-1-config)" \
-			--with-java-home="$(docker-java-home)" \
-			--with-ssl=yes; \
-		make -j "$(nproc)"; \
-		make install; \
-	); \
-	apt-get purge -y --auto-remove $nativeBuildDeps; \
-	rm -rf "$nativeBuildDir"; \
-	rm bin/tomcat-native.tar.gz; \
-	\
+			--with-java-home="${JAVA_HOME}" \
+			--with-ssl=yes \
+		&& make -j "$(nproc)" \
+		&& make install \
+	) \
+	&& yum erase -y $nativeBuildDeps \
+	&& rm -rf "$nativeBuildDir" \
+	&& rm bin/tomcat-native.tar.gz \
 # sh removes env vars it doesn't support (ones with periods)
 # https://github.com/docker-library/tomcat/issues/77
-	find ./bin/ -name '*.sh' -exec sed -ri 's|^#!/bin/sh$|#!/usr/bin/env bash|' '{}' +
+	&& find ./bin/ -name '*.sh' -exec sed -ri 's|^#!/bin/sh$|#!/usr/bin/env bash|' '{}' +
 
 # verify Tomcat Native is working properly
 RUN set -e \

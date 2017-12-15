@@ -88,18 +88,18 @@ docker build -t laincloud/python:3.6 python/3.6
 
 docker push laincloud/python:3.6
 
-docker build -t laincloud/tomcat tomcat/8
-
-docker push laincloud/tomcat
-
-docker tag laincloud/tomcat laincloud/tomcat:8
-
-docker push laincloud/tomcat:8
-
-docker tag laincloud/tomcat laincloud/tomcat:8.5
-
-docker push laincloud/tomcat:8.5
-
-docker tag laincloud/tomcat laincloud/tomcat:8.5.24
-
-docker push laincloud/tomcat:8.5.24
+#docker build -t laincloud/tomcat tomcat/8
+#
+#docker push laincloud/tomcat
+#
+#docker tag laincloud/tomcat laincloud/tomcat:8
+#
+#docker push laincloud/tomcat:8
+#
+#docker tag laincloud/tomcat laincloud/tomcat:8.5
+#
+#docker push laincloud/tomcat:8.5
+#
+#docker tag laincloud/tomcat laincloud/tomcat:8.5.24
+#
+#docker push laincloud/tomcat:8.5.24
