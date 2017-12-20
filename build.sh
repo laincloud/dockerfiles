@@ -52,18 +52,6 @@ docker tag laincloud/java:8 laincloud/java:8u152-jdk
 
 docker push laincloud/java:8u152-jdk
 
-docker build -t laincloud/jetty:9 jetty/9
-
-docker push laincloud/jetty:9
-
-docker tag laincloud/jetty:9 laincloud/jetty:9.4
-
-docker push laincloud/jetty:9.4
-
-docker tag laincloud/jetty:9 laincloud/jetty:9.4.7
-
-docker push laincloud/jetty:9.4.7
-
 docker build -t laincloud/maven:3 maven/3
 
 docker push laincloud/maven:3
@@ -104,7 +92,7 @@ docker build -t laincloud/jira:7 jira/7
 
 docker push laincloud/jira:7
 
-docker tag laincloud/jira:7 laincloud/7.6.1
+docker tag laincloud/jira:7 laincloud/jira:7.6.1
 
 docker push laincloud/jira:7.6.1
 
@@ -123,3 +111,7 @@ docker push laincloud/openjdk:7-jdk
 docker tag laincloud/openjdk:7-jdk laincloud/7u151-jdk
 
 docker push laincloud/7u151-jdk
+
+docker build -t laincloud/jetty:9.2-jre7 jetty/9.2-jre7
+
+docker push laincloud/jetty:9.2-jre7
