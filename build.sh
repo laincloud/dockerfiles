@@ -20,6 +20,10 @@ docker build -t laincloud/debian:stretch debian/stretch
 
 docker push laincloud/debian:stretch
 
+docker build -t laincloud/debian:jessie debian/jessie
+
+docker push laincloud/debian:jessie
+
 docker build -t laincloud/golang:1.8.3 golang/1.8.3
 
 docker push laincloud/golang:1.8.3
@@ -88,22 +92,34 @@ docker build -t laincloud/python:3.6 python/3.6
 
 docker push laincloud/python:3.6
 
-#docker build -t laincloud/tomcat tomcat/8
-#
-#docker push laincloud/tomcat
-#
-#docker tag laincloud/tomcat laincloud/tomcat:8
-#
-#docker push laincloud/tomcat:8
-#
-#docker tag laincloud/tomcat laincloud/tomcat:8.5
-#
-#docker push laincloud/tomcat:8.5
-#
-#docker tag laincloud/tomcat laincloud/tomcat:8.5.24
-#
-#docker push laincloud/tomcat:8.5.24
+docker build -t laincloud/jira:6 jira/6
 
-docker build -t laincloud/jira:7.6.1 jira/7.6.1
+docker push laincloud/jira:6
+
+docker tag laincloud/jira:6 laincloud/jira:6.4.14
+
+docker push laincloud/jira:6.4.14
+
+docker build -t laincloud/jira:7 jira/7
+
+docker push laincloud/jira:7
+
+docker tag laincloud/jira:7 laincloud/7.6.1
 
 docker push laincloud/jira:7.6.1
+
+docker build -t laincloud/openjdk:7-jre openjdk/7-jre
+
+docker push laincloud/openjdk:7-jre
+
+docker tag laincloud/openjdk:7-jre laincloud/openjdk:7u151-jre
+
+docker push laincloud/openjdk:7u151-jre
+
+docker build -t laincloud/openjdk:7-jdk openjdk/7-jdk
+
+docker push laincloud/openjdk:7-jdk
+
+docker tag laincloud/openjdk:7-jdk laincloud/7u151-jdk
+
+docker push laincloud/7u151-jdk
