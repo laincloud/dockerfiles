@@ -76,9 +76,13 @@ docker build -t laincloud/node:8.4.0 node/8.4.0
 
 docker push laincloud/node:8.4.0
 
-docker build -t laincloud/python:3.6 python/3.6
+docker build -t laincloud/python:2 python/2
 
-docker push laincloud/python:3.6
+docker push laincloud/python:2
+
+docker build -t laincloud/python:3 python/3
+
+docker push laincloud/python:3
 
 docker build -t laincloud/jira:6 jira/6
 

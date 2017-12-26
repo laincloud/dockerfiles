@@ -1,4 +1,4 @@
-FROM buildpack-deps:stretch-scm
+FROM buildpack-deps:stretch
 
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
     && sed -i 's|security.debian.org|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list \
@@ -13,7 +13,6 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
                        iptraf \
                        traceroute \
                        unzip \
-                       xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
 ENV S6_OVERLAY_VERSION=v1.21.2.1 \
