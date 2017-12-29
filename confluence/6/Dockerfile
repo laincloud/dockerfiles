@@ -1,4 +1,4 @@
-FROM frekele/java:8
+FROM laincloud/java:8
 
 # Setup useful environment variables
 ENV CONF_HOME     /var/atlassian/confluence
@@ -16,7 +16,7 @@ RUN set -x \
     && touch -d "@0"           "${CONF_INSTALL}/conf/server.xml"
 
 # Expose default HTTP connector port.
-EXPOSE 8090 8091
+EXPOSE 8090
 
 # Set volume mount points for installation and home directory. Changes to the
 # home directory needs to be persisted as well as parts of the installation
