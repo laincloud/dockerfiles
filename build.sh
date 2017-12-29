@@ -72,9 +72,13 @@ docker build -t laincloud/nginx:1.13.5 nginx/1.13.5
 
 docker push laincloud/nginx:1.13.5
 
-docker build -t laincloud/node:8.4.0 node/8.4.0
+docker build -t laincloud/node:8 node/8
 
-docker push laincloud/node:8.4.0
+docker push laincloud/node:8
+
+docker tag laincloud/node:8 laincloud/node:8.9.3
+
+docker push laincloud/node:8.9.3
 
 docker build -t laincloud/python:2 python/2
 
@@ -99,6 +103,14 @@ docker push laincloud/jira:7
 docker tag laincloud/jira:7 laincloud/jira:7.6.1
 
 docker push laincloud/jira:7.6.1
+
+docker build -t laincloud/confluence:5 confluence/5
+
+docker push laincloud/confluence:5
+
+docker build -t laincloud/confluence:6 confluence/6
+
+docker push laincloud/confluence:6
 
 docker build -t laincloud/openjdk:7-jre openjdk/7-jre
 
