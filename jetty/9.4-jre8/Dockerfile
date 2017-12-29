@@ -1,8 +1,5 @@
 FROM laincloud/openjdk:8-jre
 
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r jetty && useradd -r -g jetty jetty
-
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH
 RUN mkdir -p "$JETTY_HOME"
@@ -49,15 +46,6 @@ WORKDIR $JETTY_BASE
 
 RUN set -xe \
 	&& java -jar "$JETTY_HOME/start.jar" --create-startd --add-to-start="server,http,deploy,jsp,jstl,ext,resources,websocket" \
-	&& chown -R jetty:jetty "$JETTY_BASE" \
 	&& rm -rf /tmp/hsperfdata_root
 
-ENV TMPDIR /tmp/jetty
-RUN set -xe \
-	&& mkdir -p "$TMPDIR" \
-	&& chown -R jetty:jetty "$TMPDIR"
-
-COPY docker-entrypoint.sh generate-jetty-start.sh /
-
-USER jetty
 EXPOSE 8080
