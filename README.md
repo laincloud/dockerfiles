@@ -75,3 +75,32 @@ docker run -d -v /lain/logs/default:/lain/logs/default laincloud/centos:7.3.1611
 docker run -d --entrypoint ${CMD} laincloud/centos:7.3.1611
 # 这时可以在宿主机上通过 docker logs -f ${CONTAINER_ID} 查看 ${CMD} 的标准输出
 ```
+
+## dockerfiles 的构建
+
+因为 Dockerfile 较多，如果每次更改都要触发全部构建的话速度将会很慢，所以我们编写
+了 `dockerfiles` 命令行工具，只重新构建发生了变化的镜像以及依赖于变更镜像的镜
+像。
+
+### 编译
+
+```
+go get -u github.com/golang/dep/cmd/dep
+dep ensure
+go test ./...
+go install
+```
+
+### 运行
+
+```
+dockerfiles build  # 构建受到 (origin/master, HEAD] 影响的镜像
+dockerfiles pull  # 下载受到 (orgin/master, HEAD] 影响的镜像
+dockerfiles push  # 推送受到 (origin/master, HEAD] 影响的镜像
+dockerfiles retag --old-registry-host ${oldRegistryHost} --old-organization ${oldOrganization} --new-registry-host ${newRegistryHost} --new-organization ${newOrganization} # 为受到 (origin/master, HEAD] 影响的镜像重新打标签
+```
+
+> - dockerfiles 的运行依赖于：
+>       - git
+>       - make
+> - dockerfiles 构建 ${a}/${b} 目录下的 Dockerfile 时，将其打标签为 `laincloud/${a}:${b}`
