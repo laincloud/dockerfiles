@@ -6,12 +6,7 @@ services:
 install:
 - go get -u github.com/golang/dep/cmd/dep
 script:
-- dep ensure
-- go test -v ./...
-- go install
-- dockerfiles build
-- docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
-- dockerfiles push
+- dep ensure && go test -v ./... && go install && dockerfiles build && docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD" && dockerfiles push
 env:
   matrix:
     secure: Ci9nVlH9OL+wYNZjEl9SpiIpSEGax/JHrWPWmDEP0D7u1kYEjWgVSqGcQq2+FcfwHWaMExExpKaiGEfnF/W7wXK7vrwI3zAxBtMpJD/jisBC6stbWUyR1EfDs/mdWPCBV15WAWZWJnMPgTJljZgqM1BoZNBpvzgEcdkIuM4qL+jK6cqqnl+P7DA8bYu+Wa+iAA4P5HlCuO87X311DRxSRMClYAsp/ouVSNq97jAFsrDJzKKzhLG9Nb9wa1xR1XLG06p2c43OSjdH8Z/cHg7QSOXwCOGx4Crc2Wj9gpBalkqOwDLTUYpPm6E/j5OrFv3MzG+dZfU0aLKkAyarEK2VSc+v7cBVgaVZgfesjkyY4oZeHtryAXQRdERAOllYSqTHskVeaNXXZ/FnLnLLUXC/Tei6uZ480n9ZY3WJC9Dz0ec15hATJJ1ZOUnXd6yr5GRXi5Xz11SJ8IG4rokrgOF+y8TtOtFAZkk8KuZBwz4TdF7mTC0mQOEU58aWOtpMHkiTKwE2zCGadNB3jvKsPQUtXCfmGLOTapFoOdYbLm3AOzHixcT/DRF2+nPQbN8R0qmXbf+kz7HjNo1zXpXOKSXImfNS5drnj0Dk7lmGDxUQUPSNzFznqVY9pka/S3y73NSLHgPSyMkuy9Es92F1VYMZa6UwCnBiAd9BZGHZH0LAZ+k=
