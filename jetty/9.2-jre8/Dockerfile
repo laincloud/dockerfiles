@@ -1,5 +1,5 @@
-# TAGS 9.2.22-jre7 9.2-jre7 9-jre7 jre7
-FROM laincloud/openjdk:7-jre
+# TAGS 9.2.22 9.2 9.2.22-jre8 9.2-jre8
+FROM laincloud/openjdk:8-jre
 
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH

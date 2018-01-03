@@ -1,3 +1,4 @@
+# TAGS 9.4.7 9.4 9 9.4.7-jre8 9.4-jre8 9-jre8 latest jre8
 FROM laincloud/openjdk:8-jre
 
 ENV JETTY_HOME /usr/local/jetty

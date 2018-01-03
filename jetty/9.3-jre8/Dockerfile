@@ -1,12 +1,12 @@
-# TAGS 9.2.22-jre7 9.2-jre7 9-jre7 jre7
-FROM laincloud/openjdk:7-jre
+# TAGS 9.3.21 9.3 9.3.21-jre8 9.3-jre8
+FROM laincloud/openjdk:8-jre
 
 ENV JETTY_HOME /usr/local/jetty
 ENV PATH $JETTY_HOME/bin:$PATH
 RUN mkdir -p "$JETTY_HOME"
 WORKDIR $JETTY_HOME
 
-ENV JETTY_VERSION 9.2.22.v20170606
+ENV JETTY_VERSION 9.3.21.v20170918
 ENV JETTY_TGZ_URL https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/$JETTY_VERSION/jetty-distribution-$JETTY_VERSION.tar.gz
 
 RUN set -xe \
