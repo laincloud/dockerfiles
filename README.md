@@ -101,8 +101,8 @@ dockerfiles retag --old-registry-host ${oldRegistryHost} --old-organization ${ol
 ```
 
 > - dockerfiles 的运行依赖于：
->       - git
->       - make
+>     - git
+>     - make
 > - dockerfiles 构建 ${a}/${b} 目录下的 Dockerfile 时：
->       - 如果 Dockerfile 首行有 `# TAGS ${tag1} ${tag2} ... ${tagN}`，则将其打标签为 `laincloud/${a}:${tag1}, laincloud/${a}:${tag2}，...，laincloud/${a}:${tagN}`
->       - 如果没有，则将其打标签为 `laincloud/${a}:${b}`
+>     - 如果 Dockerfile 首行有 `# TAGS ${tag1} ${tag2} ... ${tagN}`，则将其打标签为 `laincloud/${a}:${tag1}, laincloud/${a}:${tag2}，...，laincloud/${a}:${tagN}`
+>     - 如果没有，则将其打标签为 `laincloud/${a}:${b}`
