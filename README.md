@@ -101,6 +101,7 @@ dockerfiles retag --old-registry-host ${oldRegistryHost} --old-organization ${ol
 ```
 
 > - dockerfiles 的运行依赖于：
+>     - docker
 >     - git
 >     - make
 > - dockerfiles 构建 ${a}/${b} 目录下的 Dockerfile 时：
