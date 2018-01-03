@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-// Command denotes build/pull/push
-type Command = int
+// Command denotes build/pull/push/retag
+type Command int
 
 const (
 	// Build denotes build image
