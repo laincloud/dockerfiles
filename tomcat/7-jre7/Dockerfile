@@ -1,3 +1,4 @@
+# TAGS 7.0.82-jre7 7.0-jre7 7-jre7 7.0.82 7.0 7
 FROM laincloud/openjdk:7-jre
 
 ENV CATALINA_HOME /usr/local/tomcat

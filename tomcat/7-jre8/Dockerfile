@@ -1,3 +1,4 @@
+# TAGS 7.0.82-jre8 7.0-jre8 7-jre8
 FROM laincloud/openjdk:8-jre
 
 ENV CATALINA_HOME /usr/local/tomcat
