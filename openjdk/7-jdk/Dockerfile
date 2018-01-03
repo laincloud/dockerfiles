@@ -1,4 +1,4 @@
-# TAGS 7u151-jdk 7-jdk
+# TAGS 7u151-jdk 7u151 7-jdk 7
 FROM laincloud/debian:jessie
 
 # Default to UTF-8 file.encoding

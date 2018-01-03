@@ -1,3 +1,4 @@
+# TAGS 9.0.1-11-jre 9.0.1-jre 9.0-jre 9-jre
 FROM laincloud/debian:sid
 
 # Default to UTF-8 file.encoding

@@ -1,4 +1,4 @@
-# TAGS 8u151-jdk 8-jdk
+# TAGS 8u151-jdk 8u151 8-jdk 8 jdk latest
 FROM laincloud/debian:stretch
 
 # Default to UTF-8 file.encoding
