@@ -1,3 +1,4 @@
+# TAGS 3.6.4 3.6 3 latest
 FROM laincloud/debian:jessie
 
 # ensure local python is preferred over distribution python
@@ -13,8 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		tk \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV GPG_KEY C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
-ENV PYTHON_VERSION 2.7.14
+ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
+ENV PYTHON_VERSION 3.6.4
 
 RUN set -ex \
 	&& buildDeps=' \
@@ -38,8 +39,11 @@ RUN set -ex \
 	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 	&& ./configure \
 		--build="$gnuArch" \
+		--enable-loadable-sqlite-extensions \
 		--enable-shared \
-		--enable-unicode=ucs4 \
+		--with-system-expat \
+		--with-system-ffi \
+		--without-ensurepip \
 	&& make -j "$(nproc)" \
 	&& make install \
 	&& ldconfig \
@@ -53,6 +57,13 @@ RUN set -ex \
 			\( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
 		\) -exec rm -rf '{}' + \
 	&& rm -rf /usr/src/python
+
+# make some useful symlinks that are expected to exist
+RUN cd /usr/local/bin \
+	&& ln -s idle3 idle \
+	&& ln -s pydoc3 pydoc \
+	&& ln -s python3 python \
+	&& ln -s python3-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 9.0.1
@@ -76,7 +87,4 @@ RUN set -ex; \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
 
-# install "virtualenv", since the vast majority of users of this image will want it
-RUN pip install --no-cache-dir virtualenv
-
-CMD ["python2"]
+CMD ["python3"]
