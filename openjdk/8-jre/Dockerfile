@@ -1,4 +1,4 @@
-# TAGS 8u151-jre 8-jre
+# TAGS 8u151-jre 8-jre jre
 FROM laincloud/debian:stretch
 
 # Default to UTF-8 file.encoding
