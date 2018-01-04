@@ -1,5 +1,5 @@
 # TAGS 9.3.0 9.3 9 latest
-FROM buildpack-deps:jessie
+FROM laincloud/debian:jessie
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
