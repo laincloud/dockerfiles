@@ -1,3 +1,4 @@
+# TAGS 3.5.2-jdk-7 3.5-jdk-7 3-jdk-7
 FROM laincloud/openjdk:7-jdk
 
 ARG MAVEN_VERSION=3.5.2

@@ -1,3 +1,4 @@
+# TAGS 3.5.2-jdk-8 3.5.2 3.5-jdk-8 3.5 3-jdk-8 3 latest
 FROM laincloud/openjdk:8-jdk
 
 ARG MAVEN_VERSION=3.5.2
