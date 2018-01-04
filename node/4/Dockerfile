@@ -1,5 +1,5 @@
-# TAGS 8.9.4 8.9 8 carbon
-FROM buildpack-deps:jessie
+# TAGS 4.8.7 4.8 4 argon
+FROM laincloud/debian:jessie
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
@@ -18,7 +18,7 @@ RUN set -ex \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 8.9.4
+ENV NODE_VERSION 4.8.7
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
