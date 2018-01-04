@@ -1,3 +1,4 @@
+# TAGS 3.5.2-jdk-9 3.5-jdk-9 3-jdk-9
 FROM laincloud/openjdk:9-jdk
 
 ARG MAVEN_VERSION=3.5.2
