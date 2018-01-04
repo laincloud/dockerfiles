@@ -1,5 +1,5 @@
 # TAGS 8.9.4 8.9 8 carbon
-FROM buildpack-deps:jessie
+FROM laincloud/debian:jessie
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
