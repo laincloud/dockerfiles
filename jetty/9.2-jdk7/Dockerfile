@@ -57,6 +57,6 @@ RUN modules="$(grep -- ^--module= "$JETTY_HOME/start.ini" | cut -d= -f2 | paste 
 ENV TMPDIR /tmp/jetty
 RUN mkdir -p "$TMPDIR"
 
-COPY docker-entrypoint.sh generate-jetty-start.sh /
+COPY docker-entrypoint.sh /
 
 EXPOSE 8080

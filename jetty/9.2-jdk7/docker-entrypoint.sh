@@ -2,6 +2,8 @@
 
 set -e
 
+cd $JETTY_BASE
+
 if [ "$1" = jetty.sh ]; then
 	if ! command -v bash >/dev/null 2>&1 ; then
 		cat >&2 <<- 'EOWARN'
