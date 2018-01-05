@@ -59,4 +59,6 @@ RUN mkdir -p "$TMPDIR"
 
 COPY docker-entrypoint.sh /
 
+CMD ["/docker-entrypoint.sh","java","-jar","/usr/local/jetty/start.jar"]
+
 EXPOSE 8080
