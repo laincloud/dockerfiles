@@ -87,4 +87,6 @@ RUN set -ex; \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
 
+COPY rootfs /
+
 CMD ["python3"]
