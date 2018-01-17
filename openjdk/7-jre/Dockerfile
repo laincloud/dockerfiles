@@ -28,8 +28,8 @@ RUN set -ex; \
 		mkdir -p /usr/share/man/man1; \
 	fi; \
 	\
-	apt-get update; \
-	apt-get install -y \
+	apt-get -qq -y update; \
+	apt-get -qq -y install \
 		openjdk-7-jre="$JAVA_DEBIAN_VERSION" \
 	; \
 	rm -rf /var/lib/apt/lists/*; \

@@ -37,7 +37,7 @@ RUN set -ex; \
 			echo 'Pin-Priority: 990'; \
 		} > /etc/apt/preferences.d/stretch-openssl; \
 	fi
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get -qq -y update && apt-get -qq -y --no-install-recommends install \
 		libapr1 \
 		openssl="$OPENSSL_VERSION" \
 	&& rm -rf /var/lib/apt/lists/*
@@ -58,7 +58,7 @@ RUN set -eux; \
 	\
 	success=; \
 	for url in $TOMCAT_TGZ_URLS; do \
-		if wget -O tomcat.tar.gz "$url"; then \
+		if wget -q -O tomcat.tar.gz "$url"; then \
 			success=1; \
 			break; \
 		fi; \
@@ -66,12 +66,12 @@ RUN set -eux; \
 	[ -n "$success" ]; \
 	\
 	echo "$TOMCAT_SHA1 *tomcat.tar.gz" | sha1sum -c -; \
-	tar -xvf tomcat.tar.gz --strip-components=1; \
+	tar -xf tomcat.tar.gz --strip-components=1; \
 	rm bin/*.bat; \
 	rm tomcat.tar.gz*; \
 	\
 	nativeBuildDir="$(mktemp -d)"; \
-	tar -xvf bin/tomcat-native.tar.gz -C "$nativeBuildDir" --strip-components=1; \
+	tar -xf bin/tomcat-native.tar.gz -C "$nativeBuildDir" --strip-components=1; \
 	nativeBuildDeps=" \
 		dpkg-dev \
 		gcc \
@@ -80,24 +80,25 @@ RUN set -eux; \
 		make \
 		openjdk-${JAVA_VERSION%%[-~bu]*}-jdk=$JAVA_DEBIAN_VERSION \
 	"; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends $nativeBuildDeps; \
+	apt-get -qq -y update; \
+	apt-get -qq -y --no-install-recommends install $nativeBuildDeps; \
 	rm -rf /var/lib/apt/lists/*; \
 	( \
 		export CATALINA_HOME="$PWD"; \
 		cd "$nativeBuildDir/native"; \
 		gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
 		./configure \
+      --quiet \
 			--build="$gnuArch" \
 			--libdir="$TOMCAT_NATIVE_LIBDIR" \
 			--prefix="$CATALINA_HOME" \
 			--with-apr="$(which apr-1-config)" \
 			--with-java-home="$(docker-java-home)" \
 			--with-ssl=yes; \
-		make -j "$(nproc)"; \
+		make --quiet -j "$(nproc)"; \
 		make install; \
 	); \
-	apt-get purge -y --auto-remove $nativeBuildDeps; \
+	apt-get -qq -y --auto-remove purge $nativeBuildDeps; \
 	rm -rf "$nativeBuildDir"; \
 	rm bin/tomcat-native.tar.gz; \
 	\
