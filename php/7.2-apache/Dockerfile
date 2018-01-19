@@ -21,7 +21,7 @@ ENV PHPIZE_DEPS \
 		make \
 		pkg-config \
 		re2c
-RUN apt-get update && apt-get install -y \
+RUN apt-get -qq -y update && apt-get -qq -y install \
 		$PHPIZE_DEPS \
 		ca-certificates \
 		curl \
@@ -31,8 +31,8 @@ RUN apt-get update && apt-get install -y \
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
+RUN apt-get -qq -y update \
+	&& apt-get -qq -y --no-install-recommends install \
 		apache2 \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -119,14 +119,14 @@ RUN set -xe; \
 			gnupg \
 		"; \
 	fi; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends $fetchDeps; \
+	apt-get -qq -y update; \
+	apt-get -qq -y --no-install-recommends install $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 	mkdir -p /usr/src; \
 	cd /usr/src; \
 	\
-	wget -O php.tar.xz "$PHP_URL"; \
+	wget -q -O php.tar.xz "$PHP_URL"; \
 	\
 	if [ -n "$PHP_SHA256" ]; then \
 		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
@@ -136,7 +136,7 @@ RUN set -xe; \
 	fi; \
 	\
 	if [ -n "$PHP_ASC_URL" ]; then \
-		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
+		wget -q -O php.tar.xz.asc "$PHP_ASC_URL"; \
 		export GNUPGHOME="$(mktemp -d)"; \
 		for key in $GPG_KEYS; do \
 			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
@@ -145,15 +145,15 @@ RUN set -xe; \
 		rm -rf "$GNUPGHOME"; \
 	fi; \
 	\
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps
+	apt-get -qq -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false purge $fetchDeps
 
 COPY docker-php-source /usr/local/bin/
 
 RUN set -eux; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	apt-get -qq -y update; \
+	apt-get -qq -y --no-install-recommends install \
 		libargon2-0-dev \
 		libcurl4-openssl-dev \
 		libedit-dev \
@@ -179,6 +179,7 @@ RUN set -eux; \
 		ln -sT "/usr/include/$debMultiarch/curl" /usr/local/include/curl; \
 	fi; \
 	./configure \
+    --quiet \
 		--build="$gnuArch" \
 		--with-config-file-path="$PHP_INI_DIR" \
 		--with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
@@ -206,7 +207,7 @@ RUN set -eux; \
 		\
 		${PHP_EXTRA_CONFIGURE_ARGS:-} \
 	; \
-	make -j "$(nproc)"; \
+	make --quiet -j "$(nproc)"; \
 	make install; \
 	find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; \
 	make clean; \
@@ -224,7 +225,7 @@ RUN set -eux; \
 		| sort -u \
 		| xargs -r apt-mark manual \
 	; \
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	apt-get -qq -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false purge; \
 	\
 	php --version; \
 	\

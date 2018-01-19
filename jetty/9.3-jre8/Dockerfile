@@ -38,7 +38,7 @@ RUN set -xe \
         gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; done \
 	&& gpg --batch --verify jetty.tar.gz.asc jetty.tar.gz \
 	&& rm -rf "$GNUPGHOME" \
-	&& tar -xvf jetty.tar.gz --strip-components=1 \
+	&& tar -xf jetty.tar.gz --strip-components=1 \
 	&& sed -i '/jetty-logging/d' etc/jetty.conf \
 	&& rm -fr demo-base javadoc \
 	&& rm jetty.tar.gz* \

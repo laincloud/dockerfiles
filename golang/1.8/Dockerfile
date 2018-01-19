@@ -2,7 +2,7 @@
 FROM laincloud/debian:jessie
 
 # gcc for cgo
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get -qq -y update && apt-get -qq -y --no-install-recommends install \
 		g++ \
 		gcc \
 		libc6-dev \
@@ -28,7 +28,7 @@ RUN set -eux; \
 	esac; \
 	\
 	url="https://golang.org/dl/go${GOLANG_VERSION}.${goRelArch}.tar.gz"; \
-	wget -O go.tgz "$url"; \
+	wget -q -O go.tgz "$url"; \
 	echo "${goRelSha256} *go.tgz" | sha256sum -c -; \
 	tar -C /usr/local -xzf go.tgz; \
 	rm go.tgz; \

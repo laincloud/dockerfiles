@@ -1,8 +1,8 @@
-#!/usr/bin/execlineb -P
+#!/bin/bash
 
 # ensure ownership & permissions for /lain/logs/default
-if { s6-mkdir -p /lain/logs/default }
-if { s6-envuidgid -D 32768:32768 nobody s6-chown -U /lain/logs/default }
-if { s6-chmod 2700 /lain/logs/default }
+mkdir -p /lain/logs/default
+chown -R nobody:nogroup /lain/logs/default
+chmod 700 /lain/logs/default
 
-logutil-service /lain/logs/default
+exec logutil-service /lain/logs/default

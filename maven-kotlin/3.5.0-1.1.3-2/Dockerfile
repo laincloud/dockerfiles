@@ -5,7 +5,7 @@ ENV KOTLIN_VERSION=1.1.3-2 \
 
 # Install kotlin
 RUN cd /tmp \
-    && wget -k "https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip" \
+    && wget -q -k "https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip" \
     && unzip "kotlin-compiler-${KOTLIN_VERSION}.zip" \
     && mv "/tmp/kotlinc" "${KOTLIN_HOME}" \
     && rm "${KOTLIN_HOME}"/bin/*.bat \
