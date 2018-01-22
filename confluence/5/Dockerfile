@@ -1,4 +1,4 @@
-FROM frekele/java:7
+FROM laincloud/java:7
 
 # Setup useful environment variables
 ENV CONF_HOME     /var/atlassian/confluence
