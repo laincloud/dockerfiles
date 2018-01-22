@@ -84,7 +84,7 @@ func newMakefileData(args Args) (*MakefileData, error) {
 		return nil, err
 	}
 
-	diffImages, err := getContext2Images(diffFiles)
+	diffImages, err := GetContext2Images(diffFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func newMakefileData(args Args) (*MakefileData, error) {
 		return nil, err
 	}
 
-	allImages, err := getContext2Images(allFiles)
+	allImages, err := GetContext2Images(allFiles)
 	if err != nil {
 		return nil, err
 	}

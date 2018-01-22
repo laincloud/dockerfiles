@@ -179,7 +179,7 @@ func parseTags(tagsLine string) ([]string, error) {
 }
 
 // getContext2Images get map[${image.Context}]Image from files
-func getContext2Images(files []string) (map[string]Image, error) {
+func GetContext2Images(files []string) (map[string]Image, error) {
 	images := make(map[string]Image)
 	for _, f := range files {
 		if strings.HasPrefix(f, ".") { // ignore hide files
