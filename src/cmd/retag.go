@@ -31,6 +31,8 @@ var retagCmd = &cobra.Command{
 }
 
 func init() {
+	retagCmd.Flags().StringVar(&commit1, "commit1", "origin/master", "previous commit")
+	retagCmd.Flags().StringVar(&commit2, "commit2", "HEAD", "current commit")
 	retagCmd.Flags().StringVar(&oldRegistryHost, "old-registry-host", "docker.io", "the old registry host who serves this image")
 	retagCmd.Flags().StringVar(&oldOrganization, "old-organization", "laincloud", "the old organization build this image")
 	retagCmd.Flags().StringVar(&newRegistryHost, "new-registry-host", "", "the new registry host who serves this image")
@@ -42,6 +44,13 @@ func init() {
 }
 
 func retag(cmd *cobra.Command, args []string) error {
+	if commit1 == "" {
+		return errors.New("--commit1 is required")
+	}
+
+	if commit2 == "" {
+		return errors.New("--commit2 is required")
+	}
 
 	if oldOrganization == "" {
 		return errors.New("--old-organization is required")
@@ -64,17 +73,17 @@ func retag(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	allFiles, err := util.Walk(".")
+	diffFiles, err := util.Diff(commit1, commit2)
 	if err != nil {
 		return err
 	}
 
-	allImages, err := util.GetContext2Images(allFiles)
+	diffImages, err := util.GetContext2Images(diffFiles)
 	if err != nil {
 		return err
 	}
 
-	for _, image := range allImages {
+	for _, image := range diffImages {
 		for _, tag := range image.Tags {
 			log.Println("retag " + image.Repository + ":" + tag)
 			if aptMirrorHost != "" {
