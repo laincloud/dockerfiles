@@ -154,7 +154,7 @@ func Make(args Args) error {
 	}
 
 	fmt.Printf("makefile:\n%s\n", makefile)
-	doMake := exec.Command("make", "-f", "-", "do")
+	doMake := exec.Command("make", "-j", "2", "-f", "-", "do")
 	buf := bytes.NewBufferString(makefile)
 	doMake.Stdin = buf
 	doMake.Stdout = os.Stdout
