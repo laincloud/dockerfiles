@@ -1,5 +1,5 @@
 # TAGS 7.6.1 7
-FROM frekele/java:8
+FROM laincloud/java:8
 
 # Configuration variables.
 ENV JIRA_HOME     /var/atlassian/jira
