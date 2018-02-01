@@ -139,7 +139,9 @@ RUN set -xe; \
 		wget -q -O php.tar.xz.asc "$PHP_ASC_URL"; \
 		export GNUPGHOME="$(mktemp -d)"; \
 		for key in $GPG_KEYS; do \
-			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+			gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+            gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+            gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
 		done; \
 		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
 		rm -rf "$GNUPGHOME"; \
