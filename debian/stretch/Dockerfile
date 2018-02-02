@@ -4,6 +4,7 @@ ENV LANG C.UTF-8
 
 RUN apt-get -qq -y update \
     && apt-get -qq -y --no-install-recommends install \
+                       apt-transport-https \
                        dnsutils \
                        vim \
                        net-tools \
