@@ -7,10 +7,7 @@ RUN curl  http://packages.icinga.com/icinga.key | apt-key add - && \
     apt-get update && \
     apt-get install -qqy icingaweb2=$ICINGAWEB2_VERSION icingacli=$ICINGAWEB2_VERSION php7.0-gd && \
     icingacli setup config webserver apache && \
-    echo 'date.timezone = Asia/Shanghai' > /etc/php/7.0/apache2/conf.d/timeszone.ini && \
-    mkdir -p /etc/icingaweb2/enabledModules && \
-    ln -s /usr/share/icingaweb2/modules/doc /etc/icingaweb2/enabledModules/ && \
-    ln -s /usr/share/icingaweb2/modules/monitoring /etc/icingaweb2/enabledModules/
+    echo 'date.timezone = Asia/Shanghai' > /etc/php/7.0/apache2/conf.d/timeszone.ini
 
 COPY apache2-foreground /usr/local/bin/
 
