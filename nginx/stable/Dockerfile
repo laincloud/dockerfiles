@@ -81,7 +81,7 @@ RUN set -x \
 	&& apt-get -qq -y --no-install-recommends --no-install-suggests install \
 						$nginxPackages \
 						gettext-base \
-	&& apt-get -qq -y --purge --auto-remove remove apt-transport-https ca-certificates && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nginx.list \
+	&& rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/nginx.list \
 	\
 # if we have leftovers from building, let's purge them (including extra, unnecessary build deps)
 	&& if [ -n "$tempDir" ]; then \
