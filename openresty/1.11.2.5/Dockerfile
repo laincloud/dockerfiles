@@ -47,8 +47,8 @@ ARG _RESTY_CONFIG_DEPS="--with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} --w
 # 4) Cleanup
 
 RUN \
-    DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get update -qq\
+    && DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends \
         build-essential \
         ca-certificates \
         curl \
@@ -62,6 +62,7 @@ RUN \
         perl \
         unzip \
         zlib1g-dev \
+        cron \
     && cd /tmp \
     && curl -fSL https://www.openssl.org/source/openssl-${RESTY_OPENSSL_VERSION}.tar.gz -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
