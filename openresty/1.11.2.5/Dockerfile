@@ -76,7 +76,7 @@ RUN \
     && cd /tmp/openresty-${RESTY_VERSION}/bundle/nginx-1.11.2/ \
     && patch -p0 < /tmp/nginx_upstream_check_module/check_1.11.1+.patch \
     && cd /tmp/openresty-${RESTY_VERSION}/ \
-    && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} --add-module=/tmp/nginx-upsync-module \
+    && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} --add-module=/tmp/nginx_upstream_check_module --add-module=/tmp/nginx-upsync-module \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
