@@ -18,8 +18,8 @@ RUN { \
 RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
 ENV JAVA_HOME /docker-java-home
 
-ENV JAVA_VERSION 8u151
-ENV JAVA_DEBIAN_VERSION 8u151-b12-1~deb9u1
+ENV JAVA_VERSION 8u162
+ENV JAVA_DEBIAN_VERSION 8u162-b12-1~deb9u1
 
 # see https://bugs.debian.org/775775
 # and https://github.com/docker-library/java/issues/19#issuecomment-70546872
@@ -32,8 +32,8 @@ RUN set -ex; \
 		mkdir -p /usr/share/man/man1; \
 	fi; \
 	\
-	apt-get -qq -y update; \
-	apt-get -qq -y install \
+	apt-get update -qq; \
+	apt-get install -qqy \
 		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
 		ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
 	; \
