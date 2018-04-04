@@ -13,6 +13,7 @@
 # init default service with CMD
 if { /bin/redirfd -w 1 /etc/services.d/app/run /bin/s6-echo -- "#!/bin/sh" }
 if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "" }
+if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "cd /lain/app/" }
 if { /bin/redirfd -a 1 /etc/services.d/app/run /bin/s6-echo -- "exec" "$@" "2>&1" }
 
 /etc/s6/init/init-stage1
