@@ -1,8 +1,5 @@
-# TAGS 7u151-jdk 7u151 7-jdk 7
+# TAGS 7u171-jdk-jessie 7u171-jessie 7-jdk-jessie 7-jessie 7u171-jdk 7u171 7-jdk 7
 FROM laincloud/debian:jessie
-
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
@@ -19,7 +16,7 @@ RUN ln -svT "/usr/lib/jvm/java-7-openjdk-$(dpkg --print-architecture)" /docker-j
 ENV JAVA_HOME /docker-java-home
 
 ENV JAVA_VERSION 7u151
-ENV JAVA_DEBIAN_VERSION 7u151-2.6.11-2~deb8u1
+ENV JAVA_DEBIAN_VERSION 7u171-2.6.13-1~deb8u1
 
 RUN set -ex; \
 	\
@@ -28,8 +25,8 @@ RUN set -ex; \
 		mkdir -p /usr/share/man/man1; \
 	fi; \
 	\
-	apt-get -qq -y update; \
-	apt-get -qq -y install \
+	apt-get update -qq; \
+	apt-get -qqy install \
 		openjdk-7-jdk="$JAVA_DEBIAN_VERSION" \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
