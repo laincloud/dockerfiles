@@ -1,8 +1,5 @@
-# TAGS 9.0.1-11-jre 9.0.1-jre 9.0-jre 9-jre
+# TAGS 9.0.4-12-jre-sid 9.0.4-jre-sid 9.0-jre-sid 9-jre-sid 9.0.4-12-jre 9.0.4-jre 9.0-jre 9-jre
 FROM laincloud/debian:sid
-
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
@@ -18,8 +15,8 @@ RUN { \
 RUN ln -svT "/usr/lib/jvm/java-9-openjdk-$(dpkg --print-architecture)" /docker-java-home
 ENV JAVA_HOME /docker-java-home
 
-ENV JAVA_VERSION 9.0.1+11
-ENV JAVA_DEBIAN_VERSION 9.0.1+11-1
+ENV JAVA_VERSION 9.0.4+12
+ENV JAVA_DEBIAN_VERSION 9.0.4+12-4
 
 RUN set -ex; \
 	\
@@ -28,8 +25,8 @@ RUN set -ex; \
 		mkdir -p /usr/share/man/man1; \
 	fi; \
 	\
-	apt-get -qq -y update; \
-	apt-get -qq -y install \
+	apt-get update -qq; \
+	apt-get install -qqy \
 		openjdk-9-jre="$JAVA_DEBIAN_VERSION" \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
