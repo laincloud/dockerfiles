@@ -3,17 +3,35 @@ FROM debian:sid-20180312
 
 ENV LANG C.UTF-8
 
+RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
+		ca-certificates \
+		curl \
+		wget \
+	&& rm -rf /var/lib/apt/lists/*
+
 RUN set -ex; \
-	apt-get update -qq; \
-	apt-get install -qqy --no-install-recommends \
-	    ca-certificates \
-        curl \
-        wget \
-        git \
-        mercurial \
-        openssh-client \
-        subversion \
-        procps \
+	if ! command -v gpg > /dev/null; then \
+		apt-get update -qq; \
+		apt-get install -qqy --no-install-recommends \
+			gnupg \
+			dirmngr \
+		; \
+		rm -rf /var/lib/apt/lists/*; \
+	fi
+
+# procps is very common in build systems, and is a reasonably small package
+RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
+		git \
+		mercurial \
+		openssh-client \
+		subversion \
+		\
+		procps \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
 		autoconf \
 		automake \
 		bzip2 \
@@ -52,16 +70,6 @@ RUN set -ex; \
 		patch \
 		xz-utils \
 		zlib1g-dev \
-		dnsutils \
-        vim \
-        net-tools \
-        tcpdump \
-        nmap \
-        lsof \
-        telnet \
-        iptraf \
-        traceroute \
-        unzip \
 		\
 # https://lists.debian.org/debian-devel-announce/2016/09/msg00000.html
 		$( \
@@ -75,15 +83,19 @@ RUN set -ex; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-	if ! command -v gpg > /dev/null; then \
-		apt-get update -qq; \
-		apt-get install -qqy --no-install-recommends \
-			gnupg2 \
-			dirmngr \
-		; \
-		rm -rf /var/lib/apt/lists/*; \
-	fi
+RUN apt-get update -qq \
+    && apt-get install -qqy --no-install-recommends \
+                       dnsutils \
+                       vim \
+                       net-tools \
+                       tcpdump \
+                       nmap \
+                       lsof \
+                       telnet \
+                       iptraf \
+                       traceroute \
+                       unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV S6_OVERLAY_VERSION=v1.21.2.1 \
     S6_LOGGING_SCRIPT=n3\ s268435455 \
