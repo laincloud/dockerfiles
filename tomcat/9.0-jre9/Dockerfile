@@ -1,5 +1,5 @@
-# TAGS 9.0.7-jre8 9.0-jre8 9-jre8
-FROM laincloud/openjdk:8-jre
+# TAGS 9.0.7-jre9 9.0-jre9 9-jre9 9.0.7 9.0 9
+FROM laincloud/openjdk:9-jre
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
