@@ -3,6 +3,33 @@ FROM debian:jessie-20180312
 
 ENV LANG C.UTF-8
 
+RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
+		ca-certificates \
+		curl \
+		wget \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+	if ! command -v gpg > /dev/null; then \
+		apt-get update -qq; \
+		apt-get install -qqy --no-install-recommends \
+			gnupg \
+			dirmngr \
+		; \
+		rm -rf /var/lib/apt/lists/*; \
+	fi
+
+# procps is very common in build systems, and is a reasonably small package
+RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
+		bzr \
+		git \
+		mercurial \
+		openssh-client \
+		subversion \
+		\
+		procps \
+	&& rm -rf /var/lib/apt/lists/*
+
 RUN set -ex; \
 	apt-get update -qq; \
 	apt-get install -qqy --no-install-recommends \
@@ -54,37 +81,22 @@ RUN set -ex; \
 				echo 'libmysqlclient-dev'; \
 			fi \
 		) \
-		ca-certificates \
-        curl \
-        wget \
-        bzr \
-        git \
-        mercurial \
-        openssh-client \
-        subversion \
-        procps \
-        dnsutils \
-        vim \
-        net-tools \
-        tcpdump \
-        nmap \
-        lsof \
-        telnet \
-        iptraf \
-        traceroute \
-        unzip \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-	if ! command -v gpg > /dev/null; then \
-		apt-get update -qq; \
-		apt-get install -qqy --no-install-recommends \
-			gnupg2 \
-			dirmngr \
-		; \
-		rm -rf /var/lib/apt/lists/*; \
-	fi
+RUN apt-get update -qq \
+    && apt-get install -qqy --no-install-recommends \
+                       dnsutils \
+                       vim \
+                       net-tools \
+                       tcpdump \
+                       nmap \
+                       lsof \
+                       telnet \
+                       iptraf \
+                       traceroute \
+                       unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV S6_OVERLAY_VERSION=v1.21.2.2 \
     S6_LOGGING_SCRIPT=n3\ s268435455 \
