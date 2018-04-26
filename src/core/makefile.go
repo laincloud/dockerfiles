@@ -13,7 +13,7 @@ const (
 buildImage := docker build
 pullImage := docker pull
 pushImage := docker push
-retagImage := dockerfile retag-single
+retagImage := ${GOPATH}/bin/dockerfiles retag-single
 
 .PHONY: do
 
