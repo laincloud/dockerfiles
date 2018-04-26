@@ -8,10 +8,15 @@ import (
 )
 
 var (
-	commit1      string
-	commit2      string
-	registryHost string
-	organization string
+	commit1         string
+	commit2         string
+	registryHost    string
+	organization    string
+	oldRegistryHost string
+	oldOrganization string
+	newRegistryHost string
+	newOrganization string
+	aptMirrorHost   string
 )
 
 var rootCmd = &cobra.Command{

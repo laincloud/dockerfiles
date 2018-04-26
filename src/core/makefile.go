@@ -1,4 +1,4 @@
-package util
+package core
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ const (
 buildImage := docker build
 pullImage := docker pull
 pushImage := docker push
-retagImage := docker tag
+retagImage := dockerfile retag-single
 
 .PHONY: do
 
@@ -47,7 +47,7 @@ do: {{range $context, $_ := .Diff}} {{$context | escapeSlash}}{{end}}
 do: {{range $context, $_ := .Diff}} {{$context | escapeSlash}}{{end}}
 
 {{range $context, $image := .All}}{{$context | escapeSlash}}: {{if $image.From.In $.Diff}}{{$image.From.Context $.All | escapeSlash}}{{end}}
-	{{range $image.Tags}}$(retagImage) {{if $.Args.OldRegistryHost}}{{printf "%s/" $.Args.OldRegistryHost}}{{end}}{{printf "%s/%s:%s" $.Args.OldOrganization $image.Repository .}} {{if $.Args.NewRegistryHost}}{{printf "%s/" $.Args.NewRegistryHost}}{{end}}{{printf "%s/%s:%s" $.Args.NewOrganization $image.Repository .}}
+	{{range $image.Tags}}$(retagImage) --old-registry-host {{$.Args.OldRegistryHost}} --old-organization {{$.Args.OldOrganization}} --new-registry-host {{$.Args.NewRegistryHost}} --new-organization {{$.Args.NewOrganization}} {{if $.Args.AptMirrorHost}}{{printf "--apt-mirror-host %s " $.Args.AptMirrorHost}}{{end}}{{printf "%s:%s" $image.Repository .}}
 	{{end}}
 
 {{end -}}
@@ -57,6 +57,7 @@ do: {{range $context, $_ := .Diff}} {{$context | escapeSlash}}{{end}}
 
 // Args denotes command arguments
 type Args struct {
+	AptMirrorHost   string
 	Command         Command
 	Commit1         string
 	Commit2         string
@@ -110,19 +111,7 @@ func newMakefileData(args Args) (*MakefileData, error) {
 	return &MakefileData{
 		All:  allImages,
 		Diff: diffImages,
-		Args: Args{
-			Command:         args.Command,
-			Commit1:         args.Commit1,
-			Commit2:         args.Commit2,
-			NewOrganization: args.NewOrganization,
-			NewRegistryHost: args.NewRegistryHost,
-			OldOrganization: args.OldOrganization,
-			OldRegistryHost: args.OldRegistryHost,
-			Organization:    args.Organization,
-			Password:        args.Password,
-			RegistryHost:    args.RegistryHost,
-			User:            args.User,
-		},
+		Args: args,
 	}, nil
 }
 

@@ -28,8 +28,8 @@ func build(cmd *cobra.Command, args []string) error {
 		return errors.New("--commit2 is required")
 	}
 
-	return util.Make(util.Args{
-		Command: util.Build,
+	return core.Make(core.Args{
+		Command: core.Build,
 		Commit1: commit1,
 		Commit2: commit2,
 	})
