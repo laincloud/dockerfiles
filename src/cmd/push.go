@@ -34,8 +34,8 @@ func push(cmd *cobra.Command, args []string) error {
 		return errors.New("--organization is required")
 	}
 
-	return util.Make(util.Args{
-		Command:      util.Push,
+	return core.Make(core.Args{
+		Command:      core.Push,
 		Commit1:      commit1,
 		Commit2:      commit2,
 		Organization: organization,

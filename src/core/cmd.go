@@ -1,4 +1,4 @@
-package util
+package core
 
 import (
 	"fmt"
@@ -8,14 +8,16 @@ import (
 type Command int
 
 const (
-	// Build denotes build image
+	// Build denotes build images
 	Build Command = iota
-	// Pull denotes pull image
+	// Pull denotes pull images
 	Pull
-	// Push denotes push image
+	// Push denotes push images
 	Push
-	// Retag denotes retag image
+	// Retag denotes retag images
 	Retag
+	// RetagSingle denotes retag an image
+	RetagSingle
 )
 
 // ShowCommand return string representation of Command
@@ -29,6 +31,8 @@ func ShowCommand(c Command) string {
 		return "push"
 	case Retag:
 		return "retag"
+	case RetagSingle:
+		return "retag-single"
 	default:
 		panic(fmt.Sprintf("unexpected Command %v", c))
 	}
