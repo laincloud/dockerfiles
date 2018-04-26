@@ -81,7 +81,7 @@ func retagSingle(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		dockerBuild := exec.Command("docker", "build", "-t", fmt.Sprintf("%s/%s/%s", newRegistryHost, newOrganization, args[0]), "-f", "-")
+		dockerBuild := exec.Command("docker", "build", "-t", fmt.Sprintf("%s/%s/%s", newRegistryHost, newOrganization, args[0]), "-")
 		dockerBuild.Stdin = &buf
 		dockerBuild.Stdout = os.Stdout
 		dockerBuild.Stderr = os.Stderr
