@@ -1,4 +1,4 @@
-FROM laincloud/maven:3.5.0
+FROM laincloud/maven:3.5.2
 
 ENV KOTLIN_VERSION=1.1.3-2 \
     KOTLIN_HOME=/opt/kotlin
