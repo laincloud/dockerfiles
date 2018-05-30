@@ -29,8 +29,6 @@ RUN set -o errexit -o nounset \
 	&& ln -s /home/gradle/.gradle /root/.gradle
 
 # Create Gradle volume
-USER gradle
-VOLUME "/home/gradle/.gradle"
 WORKDIR /home/gradle
 
 RUN set -o errexit -o nounset \
