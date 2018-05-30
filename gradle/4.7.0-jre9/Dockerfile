@@ -28,7 +28,6 @@ RUN set -o errexit -o nounset \
 	&& echo "Symlinking root Gradle cache to gradle Gradle cache" \
 	&& ln -s /home/gradle/.gradle /root/.gradle
 
-# Create Gradle volume
 WORKDIR /home/gradle
 
 RUN set -o errexit -o nounset \
