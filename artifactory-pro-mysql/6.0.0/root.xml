@@ -1,3 +1,0 @@
-<Context crossContext="true" path="/" docBase="${artifactory.home}/webapps/ROOT.war">
-
-</Context>

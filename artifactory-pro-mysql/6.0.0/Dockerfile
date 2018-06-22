@@ -46,11 +46,6 @@ RUN mkdir /opt/jfrog/ && \
     mkdir -p /tmp/plugins && \
     chmod +x /entrypoint-artifactory.sh
 
-COPY root.xml $ARTIFACTORY_HOME/tomcat/conf/Catalina/localhost/root.xml
-
-RUN mv ${ARTIFACTORY_HOME}/webapps/artifactory.war ${ARTIFACTORY_HOME}/webapps/ROOT.war && \
-    rm -f $ARTIFACTORY_HOME/tomcat/conf/Catalina/localhost/artifactory.xml
-
 # Add internalUser plugin
 COPY internalUser.groovy /tmp/plugins/internalUser.groovy
 
