@@ -72,7 +72,6 @@ RUN set -ex; \
 		xz-utils \
 		zlib1g-dev \
 		\
-# https://lists.debian.org/debian-devel-announce/2016/09/msg00000.html
 		$( \
 # if we use just "apt-cache show" here, it returns zero because "Can't select versions from package 'libmysqlclient-dev' as it is purely virtual", hence the pipe to grep
 			if apt-cache show 'default-libmysqlclient-dev' 2>/dev/null | grep -q '^Version:'; then \
