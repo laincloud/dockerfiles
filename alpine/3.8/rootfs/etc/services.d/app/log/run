@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ensure ownership & permissions for /lain/logs/default
+mkdir -p /lain/logs/default
+chown -R nobody:nogroup /lain/logs/default
+chmod 700 /lain/logs/default
+
+exec logutil-service /lain/logs/default
