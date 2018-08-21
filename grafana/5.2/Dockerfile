@@ -1,4 +1,4 @@
-# TAGS 5.2 latest
+# TAGS 5.2 5.2.2
 FROM laincloud/debian:jessie
 
 ARG GRAFANA_ARCHITECTURE=amd64
