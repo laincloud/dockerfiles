@@ -1,3 +1,4 @@
+# TAGS 6.0.0
 FROM openjdk:8
 
 ENV GOSU_VERSION 1.10

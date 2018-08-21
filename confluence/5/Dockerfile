@@ -1,3 +1,4 @@
+# TAGS 5 5.1.3
 FROM laincloud/java:7
 
 # Setup useful environment variables

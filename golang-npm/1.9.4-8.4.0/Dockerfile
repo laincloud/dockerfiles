@@ -1,3 +1,4 @@
+# TAGS 1.9.4-8.4.0
 FROM laincloud/golang:1.9.4
 
 ENV NPM_CONFIG_LOGLEVEL info

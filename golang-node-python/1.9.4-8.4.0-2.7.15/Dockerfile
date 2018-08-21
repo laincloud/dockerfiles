@@ -1,3 +1,4 @@
+# TAGS 1.9.4-8.4.0-2.7.15
 FROM laincloud/golang-node:1.9.4-8.4.0
 
 # ensure local python is preferred over distribution python

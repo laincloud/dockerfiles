@@ -1,3 +1,4 @@
+# TAGS 1.9.4-8.4.0
 FROM laincloud/golang:1.9.4
 
 RUN groupadd --gid 1000 node \
