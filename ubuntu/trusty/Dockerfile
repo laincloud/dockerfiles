@@ -7,6 +7,9 @@ RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
 		ca-certificates \
 		curl \
 		wget \
+		vim.tiny \
+		sudo \
+		apt-transport-https \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -ex; \
