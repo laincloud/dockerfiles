@@ -16,21 +16,22 @@ ENV PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bi
 COPY ./run.sh /run.sh
 
 RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certificates && \
+    mkdir -p "$GF_PATHS_HOME" \
+             "$GF_PATHS_PROVISIONING/datasources" \
+             "$GF_PATHS_PROVISIONING/dashboards" \
+             "$GF_PATHS_PLUGINS" \
+             "$GF_PATHS_LOGS" \
+             "$GF_PATHS_DATA" && \
     curl -L "$GRAFANA_URL" | tar zxvf - --strip-components=1 -C "$GF_PATHS_HOME" && \
+    cp "$GF_PATHS_HOME/conf/sample.ini" /etc/grafana/grafana.ini && \
+    cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
     curl -L "$GOSU_BIN_URL" > /usr/sbin/gosu && \
     chmod +x /usr/sbin/gosu && \
     chmod +x /run.sh && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -r -g $GF_GID grafana && \
-    useradd -r -u $GF_UID -g grafana grafana && \
-    mkdir -p "$GF_PATHS_PROVISIONING/datasources" \
-             "$GF_PATHS_PROVISIONING/dashboards" \
-             "$GF_PATHS_PLUGINS" \
-             "$GF_PATHS_LOGS" \
-             "$GF_PATHS_DATA" && \
-    cp "$GF_PATHS_HOME/conf/sample.ini" /etc/grafana/grafana.ini && \
-    cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml
+    useradd -r -u $GF_UID -g grafana grafana
 
 VOLUME ["/usr/share/grafana", "/var/lib/grafana", "/var/log/grafana", "/etc/grafana"]
 
