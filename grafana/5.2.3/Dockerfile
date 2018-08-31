@@ -2,8 +2,6 @@
 FROM laincloud/debian:stretch
 
 ARG GRAFANA_DEB_URL="https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_5.2.3_amd64.deb"
-ARG GF_UID="777"
-ARG GF_GID="777"
 ARG GOSU_BIN_URL=https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64
 
 ENV PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
@@ -29,8 +27,6 @@ RUN apt-get update && apt-get install -qq -y libfontconfig curl ca-certificates 
     apt-get autoremove -y --force-yes && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    groupadd -r -g $GF_GID grafana && \
-    useradd -r -u $GF_UID -g grafana grafana && \
     chmod +x /run.sh
 
 VOLUME ["/var/lib/grafana", "/var/log/grafana", "/etc/grafana"]
