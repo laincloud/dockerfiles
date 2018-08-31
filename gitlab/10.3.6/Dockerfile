@@ -1,4 +1,4 @@
-# TAGS 10.3.6
+# TAGS 10 10.3.6
 FROM laincloud/ubuntu:trusty-20180712
 
 ENV GITLAB_VERSION=10.3.6 \
