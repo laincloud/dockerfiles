@@ -1,4 +1,4 @@
-# TAGS 5.2 5.2.3
+# TAGS 5.3 5.3.0
 FROM laincloud/debian:stretch
 
 ARG GRAFANA_URL="https://s3-us-west-2.amazonaws.com/grafana-releases/master/grafana-latest.linux-x64.tar.gz"
