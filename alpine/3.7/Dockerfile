@@ -1,7 +1,7 @@
 # TAGS 3.7
 FROM alpine:3.7
 
-RUN apk add wget --update-cache --repository http://mirrors.ustc.edu.cn/alpine/v3.7/main/ --allow-untrusted
+RUN apk add wget bash bash-doc bash-completion --update-cache --repository http://mirrors.ustc.edu.cn/alpine/v3.7/main/ --allow-untrusted
 
 ENV S6_OVERLAY_VERSION=v1.21.2.2 \
     S6_LOGGING_SCRIPT=n3\ s268435455 \
