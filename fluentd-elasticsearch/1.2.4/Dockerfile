@@ -1,4 +1,4 @@
-FROM laincloud/debian:stretch-20180312
+FROM debian:stretch-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 
