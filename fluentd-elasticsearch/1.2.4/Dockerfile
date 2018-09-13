@@ -1,3 +1,4 @@
+# TAGS 1.2.4 latest
 FROM debian:stretch-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
