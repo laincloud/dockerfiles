@@ -26,12 +26,10 @@ RUN BUILD_DEPS="make gcc g++ libc6-dev ruby-dev libffi-dev" \
 
 # Copy the Fluentd configuration file for logging Docker container logs.
 COPY fluent.conf /etc/fluent/fluent.conf
-COPY run.sh /run.sh
 
-# Expose prometheus metrics.
-EXPOSE 80
+COPY entrypoint.sh /entrypoint.sh
 
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 
 # Start Fluentd to pick up our config that watches Docker container logs.
-CMD /run.sh $FLUENTD_ARGS
+CMD /entrypoint.sh $FLUENTD_OPT
