@@ -1,4 +1,4 @@
-# TAGS stretch stretch-20180831 9.5 9
+# TAGS stretch-20180831 9.5
 FROM debian:stretch-20180831
 
 ENV LANG C.UTF-8
