@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# execute pre hook script
+PRE_HOOK_SCRIPT=${PRE_HOOK}
+if [ -n "${PRE_HOOK_SCRIPT}" ]; then
+    eval ${PRE_HOOK_SCRIPT}
+fi
+ 
+# ensure ownership & permissions for /lain/logs/default
+mkdir -p /lain/logs/default
+chown -R nobody:nogroup /lain/logs/default
+chmod 700 /lain/logs/default
+
+exec logutil-service /lain/logs/default
