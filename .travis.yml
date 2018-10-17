@@ -6,4 +6,5 @@ services:
 install:
 - go get -u github.com/golang/dep/cmd/dep
 script:
-- dep ensure && go test -v ./... && go install && dockerfiles build && docker login -u="$DOCKER_USER" -p="$DOCKER_PASS" && dockerfiles push
+- export HELLO=work123454321 && echo $TEST_ENV && echo $DOCKER_USER && echo $HELLO && env
+- env && dep ensure && go test -v ./... && go install && dockerfiles build && docker login -u="$DOCKER_USER" -p="$DOCKER_PASS" && dockerfiles push
