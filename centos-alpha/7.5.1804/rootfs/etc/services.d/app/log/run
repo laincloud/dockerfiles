@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# execute pre hook script
+# execute pre hook script for lain3 logging
 PRE_HOOK_SCRIPT=${PRE_HOOK}
 if [ -n "${PRE_HOOK_SCRIPT}" ]; then
     eval ${PRE_HOOK_SCRIPT}
