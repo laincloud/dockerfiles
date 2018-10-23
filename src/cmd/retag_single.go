@@ -14,7 +14,7 @@ import (
 const (
 	dockerfileTemplate = `
 FROM {{.OldRegistryHost}}/{{.OldOrganization}}/{{.RepositoryAndTag}}
-RUN if [ -d "/etc/apt/sources.list" ]; then ( sed -i 's|deb.debian.org|{{.AptMirrorHost}}|g' /etc/apt/sources.list && \
+RUN if [ -e "/etc/apt/sources.list" ]; then ( sed -i 's|deb.debian.org|{{.AptMirrorHost}}|g' /etc/apt/sources.list && \
     sed -i 's|security.debian.org|{{.AptMirrorHost}}/debian-security|g' /etc/apt/sources.list ); fi
 `
 )
