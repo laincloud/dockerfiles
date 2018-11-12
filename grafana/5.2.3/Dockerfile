@@ -2,7 +2,7 @@
 FROM laincloud/debian:stretch
 
 ARG GRAFANA_DEB_URL="https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_5.2.3_amd64.deb"
-ARG GOSU_BIN_URL=https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64
+ARG GOSU_BIN_URL="https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64"
 
 ENV PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     GF_PATHS_DATA="/var/lib/grafana" \
@@ -33,4 +33,4 @@ VOLUME ["/var/lib/grafana", "/var/log/grafana", "/etc/grafana"]
 
 EXPOSE 3000
 
-ENTRYPOINT [ "/run.sh" ]
+CMD [ "/run.sh" ]
