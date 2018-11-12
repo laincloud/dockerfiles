@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -qq -y libfontconfig curl ca-certificates 
     rm -rf /var/lib/apt/lists/* && \
     chmod +x /run.sh
 
-VOLUME ["/var/lib/grafana", "/var/log/grafana"]
+VOLUME ["/var/lib/grafana", "/var/log/grafana", "/etc/grafana"]
 
 EXPOSE 3000
 
