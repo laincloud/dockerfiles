@@ -12,6 +12,7 @@ ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:${ANDROID_HOME}/tool
 # Install Android SDK components
 RUN yes | sdkmanager "extras;android;m2repository" "extras;google;m2repository" "platforms;android-28" "build-tools;28.0.3" "platform-tools" | echo yes 
 
+
 # Support Gradle
 ENV TERM dumb
 ENV JAVA_OPTS -Xms256m -Xmx512m
